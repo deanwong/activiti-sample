@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL"
+             xmlns:activiti="http://activiti.org/bpmn"
+             xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI"
+             typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath"
+             targetNamespace="http://www.activiti.org/processdef">
+    <process id="Pd7abf229-28d2-a864-f780-a8a8de6adf9b-no" isExecutable="true">
+        <startEvent id="START"></startEvent>
+        <serviceTask id="N-1390d68c-c7ab-4acd-b16d-19a59b24b75e" name="ServiceTask1"
+                     activiti:delegateExpression="#{dummyDelegate}">
+            <extensionElements>
+                <activiti:field name="parameterMap">
+                    <activiti:string><![CDATA[{}]]></activiti:string>
+                </activiti:field>
+            </extensionElements>
+        </serviceTask>
+        <serviceTask id="N-c7c8c634-b988-48f3-8150-84b9c832e6c5" name="ServiceTask2"
+                     activiti:delegateExpression="#{dummyDelegate}">
+            <extensionElements>
+                <activiti:field name="parameterMap">
+                    <activiti:string><![CDATA[{}]]></activiti:string>
+                </activiti:field>
+            </extensionElements>
+        </serviceTask>
+        <sequenceFlow id="N-bc1589ca-5f4e-455c-9f56-86b8613b9153" sourceRef="N-1390d68c-c7ab-4acd-b16d-19a59b24b75e"
+                      targetRef="N-c7c8c634-b988-48f3-8150-84b9c832e6c5"></sequenceFlow>
+        <serviceTask id="N-8b8f05fb-dfaa-4c97-91ce-e3822d168b0a" name="ServiceTask3"
+                     activiti:delegateExpression="#{dummyDelegate}">
+            <extensionElements>
+                <activiti:field name="parameterMap">
+                    <activiti:string><![CDATA[{}]]></activiti:string>
+                </activiti:field>
+            </extensionElements>
+        </serviceTask>
+        <sequenceFlow id="N-9fa3dcd4-9615-4a2c-b5bc-1d4106d1c954" sourceRef="N-c7c8c634-b988-48f3-8150-84b9c832e6c5"
+                      targetRef="N-8b8f05fb-dfaa-4c97-91ce-e3822d168b0a"></sequenceFlow>
+        <sequenceFlow sourceRef="START" targetRef="N-e217b2d9-de34-4f7f-a140-a4857dee251b"></sequenceFlow>
+        <serviceTask id="N-e217b2d9-de34-4f7f-a140-a4857dee251b" name="Timer" activiti:async="true"
+                     activiti:delegateExpression="#{dummyDelegate}">
+            <extensionElements>
+                <activiti:field name="parameterMap">
+                    <activiti:string><![CDATA[{}]]></activiti:string>
+                </activiti:field>
+            </extensionElements>
+        </serviceTask>
+        <sequenceFlow id="N-06248e93-90f3-4905-b29e-8cb8d7248b94" sourceRef="N-e217b2d9-de34-4f7f-a140-a4857dee251b"
+                      targetRef="N-1390d68c-c7ab-4acd-b16d-19a59b24b75e"></sequenceFlow>
+        <endEvent id="N-48e631c1-3fe9-4b8c-a406-350761a52833"></endEvent>
+        <sequenceFlow id="N-4fb3cfaf-5ab2-45a6-9ee4-00613c97ad3c" sourceRef="N-8b8f05fb-dfaa-4c97-91ce-e3822d168b0a"
+                      targetRef="N-48e631c1-3fe9-4b8c-a406-350761a52833"></sequenceFlow>
+    </process>
+    <bpmndi:BPMNDiagram id="BPMNDiagram_Pd7abf229-28d2-a864-f780-a8a8de6adf9b">
+        <bpmndi:BPMNPlane bpmnElement="N-1390d68c-c7ab-4acd-b16d-19a59b24b75e"
+                          id="BPMNPlane_N-1390d68c-c7ab-4acd-b16d-19a59b24b75e"></bpmndi:BPMNPlane>
+    </bpmndi:BPMNDiagram>
+</definitions>

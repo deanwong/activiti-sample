@@ -1,0 +1,60 @@
+buildscript {
+    ext {
+        springBootVersion = '1.5.2.RELEASE'
+    }
+    repositories {
+        mavenLocal()
+        maven { url 'http://maven.aliyun.com/nexus/content/groups/public' }
+        jcenter()
+        maven { url "https://jitpack.io" }
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+    }
+}
+
+plugins {
+    id 'io.franzbecker.gradle-lombok' version '1.8'
+}
+
+apply plugin: 'java'
+apply plugin: 'idea'
+apply plugin: 'eclipse'
+apply plugin: 'org.springframework.boot'
+
+jar {
+    baseName = 'deadlock'
+    version = '0.0.1'
+}
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+repositories {
+    mavenLocal()
+    maven { url 'http://maven.aliyun.com/nexus/content/groups/public' }
+    jcenter()
+}
+
+dependencies {
+    compile "org.springframework.boot:spring-boot-starter-web"
+    compile "mysql:mysql-connector-java:5.1.40"
+    compile "com.zaxxer:HikariCP:2.6.1"
+    compile "org.springframework.boot:spring-boot-starter-logging"
+    compile "org.springframework.boot:spring-boot-starter-amqp"
+    compile("org.springframework.boot:spring-boot-starter-data-jpa") {
+        exclude module: "hibernate-entitymanager"
+        exclude module: "hibernate-core"
+    }
+    compile "org.springframework:spring-context-support"
+    compileOnly "org.projectlombok:lombok:1.16.16"
+    compile "org.eclipse.persistence:eclipselink:2.6.5"
+    compile "org.activiti:activiti-engine:5.22.0"
+    compile "org.activiti:activiti-spring:5.22.0"
+    compile "org.quartz-scheduler:quartz:2.2.3"
+    compile "com.fasterxml.uuid:java-uuid-generator:3.1.4"
+    compile 'org.flywaydb:flyway-core:4.1.2'
+    compile "com.h2database:h2:1.4.193"
+    testCompile "org.springframework.boot:spring-boot-starter-test"
+    testCompile "org.testng:testng:6.8.13"
+}

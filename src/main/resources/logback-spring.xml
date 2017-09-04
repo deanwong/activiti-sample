@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
+    <springProperty scope="context" name="APP_NAME" source="spring.application.name" defaultValue="${PID}"/>
+    <jmxConfigurator/>
+
+    <property name="APP_CONSOLE_LOG_PATTERN"
+              value="-%clr(%d{yyyy-MM-dd HH:mm:ss.SSS}){faint} %clr(${LOG_LEVEL_PATTERN:-%5p}) %clr(${PID:- }){magenta} %clr(---){faint} %clr([%15.15t]){faint} %clr([X-Tenant-Id=%6mdc{X-Tenant-Id}]){faint} %clr([X-Trace-Id=%mdc{X-Trace-Id}]){faint} %clr(%-40.40logger{39}){cyan} %clr(:){faint} %m%n${LOG_EXCEPTION_CONVERSION_WORD:-%wEx}"/>
+    <property name="APP_FILE_LOG_PATTERN"
+              value="-%d{yyyy-MM-dd HH:mm:ss.SSS} ${LOG_LEVEL_PATTERN:-%5p} ${PID:- } --- [%t] [X-Tenant-Id=%6mdc{X-Tenant-Id}] [X-Trace-Id=%mdc{X-Trace-Id}] %-40.40logger{39} : %m%n${LOG_EXCEPTION_CONVERSION_WORD:-%wEx}"/>
+
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <charset>UTF-8</charset>
+            <pattern>${APP_CONSOLE_LOG_PATTERN}</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="FILE"
+              class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <File>/opt/log/linkflowtech/${APP_NAME}-all.log</File>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!-- daily rollover -->
+            <fileNamePattern>/opt/log/linkflowtech/${APP_NAME}-all.%d{yyyy-MM-dd}.log</fileNamePattern>
+            <!-- keep 30 days' worth of history -->
+            <maxHistory>30</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern>${APP_FILE_LOG_PATTERN}</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="JOB_FILE"
+              class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <File>/opt/log/linkflowtech/${APP_NAME}-job.log</File>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!-- daily rollover -->
+            <fileNamePattern>/opt/log/linkflowtech/${APP_NAME}-job.%d{yyyy-MM-dd}.log</fileNamePattern>
+            <!-- keep 30 days' worth of history -->
+            <maxHistory>30</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern>${APP_FILE_LOG_PATTERN}</pattern>
+        </encoder>
+    </appender>
+
+    <logger name="org.apache.ibatis" level="INFO">
+        <appender-ref ref="STDOUT"/>
+    </logger>
+
+    <root level="INFO">
+        <appender-ref ref="STDOUT"/>
+    </root>
+    <logger name="org.springframework.amqp" level="INFO"/>
+    <logger name="org.springframework.jdbc.support" level="INFO"/>
+    <logger name="org.springframework.web" level="INFO"/>
+    <logger name="org.zaxxer.hikari" level="DEBUG"/>
+
+
+</configuration>
